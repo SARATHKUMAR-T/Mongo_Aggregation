@@ -390,22 +390,27 @@ db.drives.insertMany([
   {
     company: "Bytize",
     students: ["Sanjay", "srider"],
+    date: "12/march/2023",
   },
   {
     company: "theecode",
     students: ["Radhika", "Aswin"],
+    date: "25/oct/2023",
   },
   {
     company: "tenz",
     students: ["Balaji", "Sanjay"],
+    date: "29/march/2023",
   },
   {
     company: "guvi",
     students: ["Sanjay"],
+    date: "21/oct/2023",
   },
   {
     company: "7gtech",
     students: ["Balaji", "srider"],
+    date: "01/oct/2023",
   },
 ]);
 
@@ -440,29 +445,24 @@ db.task.aggregate([
       from: "topics",
       localField: "month",
       foreignField: "month",
-      as: "october"
-    }
+      as: "october",
+    },
   },
-    {
+  {
     $match: {
-      "october.month":'october'
-  }
-    }
-  
+      month: "october",
+    },
+  },
 ]);
 
+// Find all the company drives which appeared between 15 oct-2020 and 31-oct-2020
+db.drives.find({ date: { $gte: "01/oct/2023", $lte: "30/oct/2023" } });
 
+// Find all the company drives and students who are appeared for the placement.
+db.drives.find({});
 
+// Find the number of problems solved by the user in codekata
+db.codekata.find({ name: "user name" });
 
-db.topics.aggregate([
- 
-  {
-    $lookup: {
-      from: "task",
-      localField: "month",
-      foreignField: "month",
-      as: "tasks"
-    }
-  }
-])
-
+// Find all the mentors with who has the mentee's count more than 15
+db.mentor.find({ mentee_count: { $gte: 16 } });
